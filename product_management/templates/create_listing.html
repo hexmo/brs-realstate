@@ -1,0 +1,161 @@
+{% extends 'base.html' %}
+{% block title%} BRS | Create post {% endblock %}
+{% block body%}
+
+<div class="container">
+    <h1 class="my-4 fw-bold">Create a Post</h1>
+    <form method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        <img id="uploaded-image" class="img-thumbnail" src="">
+        <div class="mb-3">
+            <label for="cover" class="form-label">Property Image</label>
+            <input class="form-control" type="file" id="cover" name='cover' aria-describedby="coverHelp"
+                accept="image/png, image/jpeg" onchange="preview_image(event)" required>
+            <small id="coverHelp" class="form-text text-muted"></small>
+        </div>
+        <script>
+            function preview_image(event) {
+                var reader = new FileReader();
+                reader.onload = function () {
+                    var output = document.getElementById('uploaded-image');
+                    output.src = reader.result;
+                };
+                reader.readAsDataURL(event.target.files[0]);
+            }
+        </script>
+        <div class="mb-3">
+            <label for="title" class="form-label">Property title</label>
+            <input type="text" class="form-control" id="title" name='title' aria-describedby="titleHelp"
+                placeholder="2 strorey beautiful house" required>
+            <small id="titleHelp" class="form-text text-muted"></small>
+        </div>
+        <div class="mb-3">
+            <label for="address1" class="form-label">Address 1</label>
+            <input type="text" class="form-control" id="address1" name='address1' aria-describedby="address1Help"
+                placeholder="Ranjanaki Chowk" required>
+            <small id="address1Help" class="form-text text-muted"></small>
+        </div>
+        <div class="mb-3">
+            <label for="address2" class="form-label">Address 2</label>
+            <input type="text" class="form-control" id="address2" name='address2' aria-describedby="address2Help"
+                placeholder="Budhanilkantha" required>
+            <small id="address2Help" class="form-text text-muted"></small>
+        </div>
+        <div class="mb-3">
+            <label for="district" class="form-label">District</label>
+            <select class="form-select" aria-label="" name="district" id="district">
+                <option selected value="Kathmandu">Kathmandu</option>
+                <option value="Taplejung">Taplejung</option>
+                <option value="Panchthar">Panchthar</option>
+                <option value="Ilam">Ilam</option>
+                <option value="Jhapa">Jhapa</option>
+                <option value="Morang">Morang</option>
+                <option value="Sunsari">Sunsari</option>
+                <option value="Dhankutta">Dhankutta</option>
+                <option value="Sankhuwasabha">Sankhuwasabha</option>
+                <option value="Bhojpur">Bhojpur</option>
+                <option value="Terhathum">Terhathum</option>
+                <option value="Okhaldunga">Okhaldunga</option>
+                <option value="Khotang">Khotang</option>
+                <option value="Solukhumbu">Solukhumbu</option>
+                <option value="Udaypur">Udaypur</option>
+                <option value="Saptari">Saptari</option>
+                <option value="Siraha">Siraha</option>
+                <option value="Dhanusa">Dhanusa</option>
+                <option value="Mahottari">Mahottari</option>
+                <option value="Sarlahi">Sarlahi</option>
+                <option value="Sindhuli">Sindhuli</option>
+                <option value="Ramechhap">Ramechhap</option>
+                <option value="Dolkha">Dolkha</option>
+                <option value="Sindhupalchauk">Sindhupalchauk</option>
+                <option value="Kavreplanchauk">Kavreplanchauk</option>
+                <option value="Lalitpur">Lalitpur</option>
+                <option value="Bhaktapur">Bhaktapur</option>
+                <option value="Nuwakot">Nuwakot</option>
+                <option value="Rasuwa">Rasuwa</option>
+                <option value="Dhading">Dhading</option>
+                <option value="Makwanpur">Makwanpur</option>
+                <option value="Rauthat">Rauthat</option>
+                <option value="Bara">Bara</option>
+                <option value="Parsa">Parsa</option>
+                <option value="Chitwan">Chitwan</option>
+                <option value="Gorkha">Gorkha</option>
+                <option value="Lamjung">Lamjung</option>
+                <option value="Tanahun">Tanahun</option>
+                <option value="Tanahun">Tanahun</option>
+                <option value="Syangja">Syangja</option>
+                <option value="Kaski">Kaski</option>
+                <option value="Manag">Manag</option>
+                <option value="Mustang">Mustang</option>
+                <option value="Parwat">Parwat</option>
+                <option value="Myagdi">Myagdi</option>
+                <option value="Myagdi">Myagdi</option>
+                <option value="Baglung">Baglung</option>
+                <option value="Gulmi">Gulmi</option>
+                <option value="Palpa">Palpa</option>
+                <option value="Nawalparasi">Nawalparasi</option>
+                <option value="Rupandehi">Rupandehi</option>
+                <option value="Arghakhanchi">Arghakhanchi</option>
+                <option value="Kapilvastu">Kapilvastu</option>
+                <option value="Pyuthan">Pyuthan</option>
+                <option value="Rolpa">Rolpa</option>
+                <option value="Rukum">Rukum</option>
+                <option value="Salyan">Salyan</option>
+                <option value="Dang">Dang</option>
+                <option value="Bardiya">Bardiya</option>
+                <option value="Surkhet">Surkhet</option>
+                <option value="Dailekh">Dailekh</option>
+                <option value="Banke">Banke</option>
+                <option value="Jajarkot">Jajarkot</option>
+                <option value="Dolpa">Dolpa</option>
+                <option value="Humla">Humla</option>
+                <option value="Kalikot">Kalikot</option>
+                <option value="Mugu">Mugu</option>
+                <option value="Jumla">Jumla</option>
+                <option value="Bajura">Bajura</option>
+                <option value="Bajhang">Bajhang</option>
+                <option value="Achham">Achham</option>
+                <option value="Doti">Doti</option>
+                <option value="Kailali">Kailali</option>
+                <option value="Kanchanpur">Kanchanpur</option>
+                <option value="Dadeldhura">Dadeldhura</option>
+                <option value="Baitadi">Baitadi</option>
+                <option value="Darchula">Darchula</option>
+                <!-- all districts of nepal -->
+                <!-- http://aadityabhatta.blogspot.com/2016/11/districts-and-zones-of-nepal-in-html.html -->
+            </select>
+        </div>
+        <div class="mb-3">
+            <label for="description" class="form-label">Description</label>
+            <textarea rows="8" style="height:100%" type="text" class="form-control" id="description" name='description'
+                aria-describedby="descriptionHelp"
+                placeholder="Located in Siddhanagar, Gokarna Municipality of Rolpa district. &#10;4BHK Ground Floor: Kitcher-Dining, 1 Washroom, 1 bedroom &#10;First Floor: 3 Bedrooms with attached washrooms &#10;Land area: 8 aana &#10;Parking space: 2 cars, 5 bikes"
+                required></textarea>
+            <small id=" descriptionHelp" class="form-text text-muted"></small>
+        </div>
+        <div class="mb-3">
+            <label for="price" class="form-label">Price (NRS)</label>
+            <input type="number" class="form-control" id="price" name='price' aria-describedby="priceHelp"
+                placeholder="5000" required>
+            <small id="priceHelp" class="form-text text-muted"></small>
+        </div>
+        <div class="mb-3">
+            <label for="propertyType" class="form-label">PropertyType</label>
+            <select class="form-select" id='propertyType' name='propertyType' aria-label="PropertyType">
+                <option selected value="Sell: House">Sell: House</option>
+                <option value="Sell: Land">Sell: Land</option>
+                <option value="Rent: House">Rent: House</option>
+                <option value="Rent: Land">Rent: Land</option>
+            </select>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+</div>
+
+
+<script>
+    var nav_item = document.getElementById('nav-sell');
+    nav_item.classList.add("active");
+</script>
+{% endblock %}

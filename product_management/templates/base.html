@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+
+<head>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link rel="stylesheet" href="{% static 'base.css' %}" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;700&display=swap" rel="stylesheet">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    {% block extrahead %} {% endblock %}
+    <title>{% block title%} {% endblock %}</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
+        integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="shortcut icon" href="{% static 'images/logo.png' %}" type="image/x-icon">
+</head>
+
+<body>
+    <header>
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark p-3">
+            <div class="container-fluid">
+                <a class="navbar-brand fw-bolder" href="{% url 'home' %}">
+                    <img src="{% static 'images/logo.png' %}" alt="logo" width="30" height="30"
+                        class="d-inline-block align-text-top">
+                    BRS
+                </a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                    aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+
+                        <li class="nav-item">
+                            <a class="nav-link" id="nav-lands" href="{% url 'category' 'Sell: House'%}">Homes</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" id="nav-buy" href="{% url 'category' 'Rent: House'%}">Flats</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" id="nav-lands" href="{% url 'category' 'Sell: Land'%}">Land</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" id="nav-buy" href="{% url 'category' 'Rent: Land'%}">Plots</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" id="nav-sell" href="{% url 'create-post' %}">Sell</a>
+                        </li>
+                    </ul>
+                    <form class="d-flex mx-4" action="{% url 'search' %}" method="GET">
+                        <input class="form-control me-2" type="text" name="key" id="key" placeholder="Search"
+                            aria-label="Search">
+                        <button class="btn btn-outline-secondary" type="submit"><i class="fas fa-search"></i></button>
+                    </form>
+                    <ul class="navbar-nav">
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                                data-bs-toggle="dropdown" aria-expanded="false">
+                                <i class="far fa-user"></i>
+                            </a>
+                            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                                {% if user.is_authenticated %}
+                                <li><a class="dropdown-item" href="{% url 'create-post' %}">Create Listing</a></li>
+                                <li><a class="dropdown-item" href="{% url 'myListings' %}">My Listings</a></li>
+                                <li><a class="dropdown-item" href="{% url 'logout' %}">Logout</a></li>
+                                {% else %}
+                                <li><a class="dropdown-item" href="{% url 'login' %}">Login</a></li>
+                                <li><a class="dropdown-item" href="{% url 'signup' %}">Sign Up</a></li>
+                                {% endif %}
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+
+    {% block body%} {% endblock %}
+
+    <div class="container-fluid bg-dark pb-1 pt-4 text-light mt-5">
+        <div class="container">
+            <div class="row">
+                <div class="col">
+                    <h5>BRS</h5>
+                    <ul class="list-unstyled">
+                        <li><i class="fas fa-map-marker-alt"></i> Naxal, Kathmandu</li>
+                        <li><i class="fas fa-phone-square"></i> 9812345678</li>
+                        <li><i class="far fa-paper-plane"></i> support@brs.com.np</li>
+                    </ul>
+                </div>
+                <div class="col">
+                    <h5>Important Links</h5>
+                    <ul class="list-unstyled">
+                        <li><a href="{% url 'home'%}" class="link-light">Home</a></li>
+                        <li><a href="{% url 'category' 'Sell: House'%}" class="link-light">Buy</a></li>
+                        <li><a href="{% url 'create-post' %}" class="link-light">Sell</a></li>
+                    </ul>
+                </div>
+                <div class="col">
+                    <h5>Social Links</h5>
+                    <ul class="list-unstyled">
+                        <li><a href="#" class="link-light"><i class="fab fa-facebook-square"></i> Facebook</a></li>
+                        <li><a href="#" class="link-light"><i class="fab fa-instagram-square"></i> Instagram</a></li>
+                        <li><a href="#" class="link-light"><i class="fab fa-twitter-square"></i> Twitter</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <footer class="container-fluid  text-light m-0 p-0  bg-dark" style="border-top: 1px solid gray;">
+        <p class="p-2 m-0 fw-lighter text-center">&copy; Barsha's Real State (brs.com.np) </p>
+    </footer>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>

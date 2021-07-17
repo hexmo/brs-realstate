@@ -1,0 +1,87 @@
+{% extends 'base.html' %}
+{% block title%} {{product.title}} {% endblock %}
+{% block body%}
+{% load static %}
+{% load humanize %}
+<div class="container my-4">
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="{% url 'home' %}">Home</a></li>
+            <li class="breadcrumb-item"><a href="{% url 'category' product.type%}">{{product.type}}</a></li>
+            <li class="breadcrumb-item active" aria-current="page">{{product.title}}</li>
+        </ol>
+    </nav>
+</div>
+<div class="container">
+    <div class="row row-cols-1 row-cols-lg-2 g-5">
+        <div class="col">
+            <img src="{{product.image.url}}" class="img-thumbnail" alt="{{product.title}}" style="width: 100%;">
+        </div>
+        <div class="col">
+            <h3 class="fw-bold">{{product.title}}</h3>
+            <h5 class="fw-bold text-danger">Rs. {{product.price|intcomma}}</h5>
+            <h6 class="text-success">{{product.address_1}}, {{product.address_2}}, {{product.district}}</h6>
+            <p style="white-space: pre-line;">{{product.description}}</p>
+            <p class="text-muted">Listed: {{product.created_at|naturaltime}}</p>
+            <p class="m-0"><b>Listed by:</b> {{product.owner.first_name}}</p>
+            <p class="m-0"><b>Contact :</b> <a href="mailto:{{product.owner.email}}">{{product.owner.email}}</a> / <a
+                    href="tel:{{product.owner.last_name}}">{{product.owner.last_name}}</a>
+            </p>
+
+        </div>
+    </div>
+</div>
+<!-- comments -->
+<div class="container py-3">
+    <h3 class="mb-3">Comments</h3>
+    <div class="row  row-cols-1 g-2 px-3">
+        {% for comment in comments %}
+        <div class="col shadow-sm p-2 rounded" style="border-left:4px solid #0D6EFD;">
+            <h6><b>{{comment.owner.first_name}}</b><i> {{comment.created_at|naturaltime}}</i></h6>
+            <p class="p-0 m-0">{{comment.comment}}</p>
+        </div>{% empty %}
+        <p>No, comments on this listing.</p>
+        {% endfor %}
+        <div class="col">
+            {% if user.is_authenticated %}
+            <div class="container p-3 shadow-sm">
+                <form action="{% url 'comment' product.id%}" method="post">
+                    {% csrf_token %}
+                    <div class="mb-3">
+                        <textarea rows="3" style="height:100%" type="text" class="form-control" id="comment"
+                            name='comment' aria-describedby="descriptionHelp" placeholder="Write your comment here....."
+                            required></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Post Comment</button>
+                </form>
+            </div>
+            {% else %}
+            <p>
+                Please <a class="" href="{% url 'login' %}">login</a> with your account to post a comment.
+            </p>
+            {% endif %}
+        </div>
+    </div>
+</div>
+<!-- For similar -->
+<div class="container py-3">
+    <h3 class="mb-3">Similar Listings</h3>
+    <div class="row  row-cols-2 row-cols-lg-4">
+        {% for product in similar %}
+        <div class="col g-3">
+            <div class="card" style="width: 100%">
+                <img src="{{product.image.url}}" class="card-img-top" alt="{{product.title}}">
+                <div class="card-body">
+                    <h5 class="card-title fw-bold">{{product.title}}</h5>
+                    <h6>Rs. {{product.price|intcomma}}</h6>
+                    <p><small>Posted {{product.created_at|naturaltime}}</small></p>
+                    <a href="{% url 'view' product.id%}" class="btn btn-secondary">View more</a>
+                </div>
+            </div>
+        </div>
+        {% empty %}
+        <h6>Sorry, match not found.</h6>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

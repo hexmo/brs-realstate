@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+{% block title%}{{category}}{% endblock %}
+{% block body%}
+{% load static %}
+{% load humanize %}
+<!-- category page begins -->
+<!-- For sell houses -->
+<div class="container py-3">
+    <h2 class="mb-3">{{category}}</h2>
+    <div class="row row-cols-2 row-cols-lg-4">
+        {% for product in products %}
+        <div class="col g-3">
+            <div class="card" style="width: 100%;">
+                <img src="{{product.image.url}}" class="card-img-top" alt="{{product.title}}">
+                <div class="card-body">
+                    <h5 class="card-title fw-bold">{{product.title}}</h5>
+                    <h6>Rs. {{product.price|intcomma}}</h6>
+                    <p><small>Posted {{product.created_at|naturaltime}}</small></p>
+                    <a href="{% url 'view' product.id%}" class="btn btn-secondary">View more</a>
+                </div>
+            </div>
+        </div>
+        {% empty %}
+        <h6>Sorry, there are no listings for this category.</h6>
+        {% endfor %}
+
+    </div>
+</div>
+
+
+{% endblock %}
